@@ -1,0 +1,895 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{script}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{mnist-using-cnn-keras---acc-0.996-top-4}{%
+\section{MNIST using CNN Keras - Acc 0.996 (TOP
+4\%)}\label{mnist-using-cnn-keras---acc-0.996-top-4}}
+
+\hypertarget{sudheer-achary}{%
+\subsubsection{\texorpdfstring{\textbf{Sudheer
+Achary}}{Sudheer Achary}}\label{sudheer-achary}}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{1. Introduction}
+\item
+  \textbf{2. Data preparation}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    2.1 Load data
+  \item
+    2.2 Check for null and missing values
+  \item
+    2.3 Normalization
+  \item
+    2.4 Reshape
+  \item
+    2.5 Label encoding
+  \item
+    2.6 Split training and valdiation set
+  \end{itemize}
+\item
+  \textbf{3. CNN}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    3.1 Define the model
+  \item
+    3.2 Set the optimizer and annealer
+  \item
+    3.3 Data augmentation
+  \end{itemize}
+\item
+  \textbf{4. Evaluate the model}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    4.1 Training and validation curves
+  \item
+    4.2 Confusion matrix
+  \end{itemize}
+\item
+  \textbf{5. Prediction and submition}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    5.1 Predict and Submit results
+  \end{itemize}
+\end{itemize}
+
+    \hypertarget{introduction}{%
+\section{1. Introduction}\label{introduction}}
+
+This is a 11 layers Sequential Convolutional Neural Network for digits
+recognition trained on MNIST dataset. I choosed to build it with keras
+API (Tensorflow backend) which is very intuitive. Firstly, I will
+prepare the data (handwritten digits images) then i will focus on the
+CNN modeling and evaluation.
+
+I achieved 99.685\% of accuracy with this CNN trained on GTX 1080Ti for
+50 epochs with batch size of 64 using tensorflow-gpu with keras.
+
+This Notebook follows three main parts:
+
+\begin{itemize}
+\tightlist
+\item
+  The data preparation
+\item
+  The CNN modeling and evaluation
+\item
+  The results prediction and submission
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k+kn}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k+kn}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib.pyplot} \PY{k+kn}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib.image} \PY{k+kn}{as} \PY{n+nn}{mpimg}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k+kn}{as} \PY{n+nn}{sns}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        
+        \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+        
+        \PY{k+kn}{from} \PY{n+nn}{sklearn.model\PYZus{}selection} \PY{k+kn}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn.metrics} \PY{k+kn}{import} \PY{n}{confusion\PYZus{}matrix}
+        \PY{k+kn}{import} \PY{n+nn}{itertools}
+        
+        \PY{k+kn}{from} \PY{n+nn}{keras.utils.np\PYZus{}utils} \PY{k+kn}{import} \PY{n}{to\PYZus{}categorical} \PY{c+c1}{\PYZsh{} convert to one\PYZhy{}hot\PYZhy{}encoding}
+        \PY{k+kn}{from} \PY{n+nn}{keras.models} \PY{k+kn}{import} \PY{n}{Sequential}
+        \PY{k+kn}{from} \PY{n+nn}{keras.layers} \PY{k+kn}{import} \PY{n}{Dense}\PY{p}{,} \PY{n}{Dropout}\PY{p}{,} \PY{n}{Flatten}\PY{p}{,} \PY{n}{Conv2D}\PY{p}{,} \PY{n}{MaxPool2D}\PY{p}{,} \PY{n}{BatchNormalization}
+        \PY{k+kn}{from} \PY{n+nn}{keras.optimizers} \PY{k+kn}{import} \PY{n}{Adagrad}
+        \PY{k+kn}{from} \PY{n+nn}{keras.regularizers} \PY{k+kn}{import} \PY{n}{l2}
+        \PY{k+kn}{from} \PY{n+nn}{keras.preprocessing.image} \PY{k+kn}{import} \PY{n}{ImageDataGenerator}
+        \PY{k+kn}{from} \PY{n+nn}{keras.callbacks} \PY{k+kn}{import} \PY{n}{ReduceLROnPlateau}
+        
+        
+        \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{style}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{context}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{notebook}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{palette}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{deep}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{data-preparation}{%
+\section{2. Data preparation}\label{data-preparation}}
+
+\hypertarget{load-data}{%
+\subsection{2.1 Load data}\label{load-data}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Load the data}
+        \PY{n}{train} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{train.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{test} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{test.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{Y\PYZus{}train} \PY{o}{=} \PY{n}{train}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{label}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} Drop \PYZsq{}label\PYZsq{} column}
+        \PY{n}{X\PYZus{}train} \PY{o}{=} \PY{n}{train}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{labels} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{label}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,}\PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)} 
+        
+        \PY{c+c1}{\PYZsh{} free some space}
+        \PY{k}{del} \PY{n}{train} 
+        
+        \PY{n}{g} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{countplot}\PY{p}{(}\PY{n}{Y\PYZus{}train}\PY{p}{)}
+        
+        \PY{n}{Y\PYZus{}train}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    We have similar counts for the 10 digits.
+
+    \hypertarget{check-for-null-and-missing-values}{%
+\subsection{2.2 Check for null and missing
+values}\label{check-for-null-and-missing-values}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Check the data}
+        \PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{any}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{test}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{any}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    I check for corrupted images (missing values inside).
+
+There is no missing values in the train and test dataset. So we can
+safely go ahead.
+
+    \hypertarget{normalization}{%
+\subsection{2.3 Normalization}\label{normalization}}
+
+    We perform a grayscale normalization to reduce the effect of
+illumination's differences.
+
+Moreover the CNN converg faster on {[}0..1{]} data than on {[}0..255{]}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Normalize the data}
+        \PY{n}{X\PYZus{}train} \PY{o}{=} \PY{n}{X\PYZus{}train} \PY{o}{/} \PY{l+m+mf}{255.0}
+        \PY{n}{test} \PY{o}{=} \PY{n}{test} \PY{o}{/} \PY{l+m+mf}{255.0}
+\end{Verbatim}
+
+
+    \hypertarget{reshape}{%
+\subsection{2.3 Reshape}\label{reshape}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Reshape image in 3 dimensions (height = 28px, width = 28px , canal = 1)}
+        \PY{n}{X} \PY{o}{=} \PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{28}\PY{p}{,}\PY{l+m+mi}{28}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{test} \PY{o}{=} \PY{n}{test}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{28}\PY{p}{,}\PY{l+m+mi}{28}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    Train and test images (28px x 28px) has been stock into pandas.Dataframe
+as 1D vectors of 784 values. We reshape all data to 28x28x1 3D matrices.
+
+Keras requires an extra dimension in the end which correspond to
+channels. MNIST images are gray scaled so it use only one channel. For
+RGB images, there is 3 channels, we would have reshaped 784px vectors to
+28x28x3 3D matrices.
+
+    \hypertarget{label-encoding}{%
+\subsection{2.5 Label encoding}\label{label-encoding}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Encode labels to one hot vectors (ex : 2 \PYZhy{}\PYZgt{} [0,0,1,0,0,0,0,0,0,0])}
+        \PY{n}{Y} \PY{o}{=} \PY{n}{to\PYZus{}categorical}\PY{p}{(}\PY{n}{Y\PYZus{}train}\PY{p}{,} \PY{n}{num\PYZus{}classes} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+    Labels are 10 digits numbers from 0 to 9. We need to encode these lables
+to one hot vectors (ex : 2 -\textgreater{} {[}0,0,1,0,0,0,0,0,0,0{]}).
+
+    \hypertarget{split-training-and-valdiation-set}{%
+\subsection{2.6 Split training and valdiation
+set}\label{split-training-and-valdiation-set}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Set the random seed}
+        \PY{n}{random\PYZus{}seed} \PY{o}{=} \PY{l+m+mi}{894}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Split the train and the validation set for the fitting}
+        \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}val}\PY{p}{,} \PY{n}{Y\PYZus{}train}\PY{p}{,} \PY{n}{Y\PYZus{}val} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{,} \PY{n}{test\PYZus{}size} \PY{o}{=} \PY{l+m+mf}{0.001}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{n}{random\PYZus{}seed}\PY{p}{)}
+\end{Verbatim}
+
+
+    I choosed to split the train set in two parts : a small fraction
+(0.01\%) became the validation set which the model is evaluated and the
+rest (99.99\%) is used to train the model.
+
+Since we have 42 000 training images of balanced labels (see 2.1 Load
+data), a random split of the train set doesn't cause some labels to be
+over represented in the validation set.
+
+    We can get a better sense for one of these examples by visualising the
+image and looking at the label.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Some examples}
+        \PY{n}{g} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{cnn}{%
+\section{3. CNN}\label{cnn}}
+
+\hypertarget{define-the-model}{%
+\subsection{3.1 Define the model}\label{define-the-model}}
+
+    I used the Keras Sequential API, where you have just to add one layer at
+a time, starting from the input.
+
+The first is the convolutional (Conv2D) layer. It is like a set of
+learnable filters. I choosed to set 64 filters for the first conv2D
+layer with kernel of size 5x5 and 128 filters for the next two conv2D
+layers with 3x3 kernels respectively. Each filter transforms a part of
+the image (defined by the kernel size) using the kernel filter. The
+kernel filter matrix is applied on the whole image. Filters can be seen
+as a transformation of the image.
+
+The CNN can isolate features that are useful everywhere from these
+transformed images (feature maps).
+
+The second important layer in CNN is the pooling (MaxPool2D) layer. This
+layer simply acts as a downsampling filter. It looks at the 2
+neighboring pixels and picks the maximal value. These are used to reduce
+computational cost, and to some extent also reduce overfitting. We have
+to choose the pooling size (i.e the area size pooled each time) more the
+pooling dimension is high, more the downsampling is important.
+
+Combining convolutional and pooling layers, CNN are able to combine
+local features and learn more global features of the image.
+
+`elu' is the exponential linear unit (activation function. The
+\textbf{elu} activation function is used to add non linearity to the
+network.
+
+The Flatten layer is use to convert the final feature maps into a one
+single 1D vector. This flattening step is needed so that you can make
+use of fully connected Dense layers after some convolutional/maxpool
+layers. It combines all the found local features of the previous
+convolutional layers.
+
+In the end i used the features in two fully-connected (Dense) layers
+which is just artificial an neural networks (ANN) classifier. In the
+last layer (Dense(10, activation=``softmax'')) the net outputs
+distribution of probability of each class.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{model} \PY{o}{=} \PY{n}{Sequential}\PY{p}{(}\PY{p}{)}
+        
+        \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Conv2D}\PY{p}{(}\PY{n}{filters} \PY{o}{=} \PY{l+m+mi}{64}\PY{p}{,} \PY{n}{kernel\PYZus{}size} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,} \PY{n}{padding} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Same}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{activation} \PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{elu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{input\PYZus{}shape} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{28}\PY{p}{,}\PY{l+m+mi}{28}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Conv2D}\PY{p}{(}\PY{n}{filters} \PY{o}{=} \PY{l+m+mi}{64}\PY{p}{,} \PY{n}{kernel\PYZus{}size} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} \PY{n}{padding} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Same}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{activation} \PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{elu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{p}{)}\PY{p}{)}
+        \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{MaxPool2D}\PY{p}{(}\PY{n}{pool\PYZus{}size}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} \PY{n}{strides}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{BatchNormalization}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Conv2D}\PY{p}{(}\PY{n}{filters} \PY{o}{=} \PY{l+m+mi}{128}\PY{p}{,} \PY{n}{kernel\PYZus{}size} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} \PY{n}{padding} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Same}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{activation} \PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{elu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Conv2D}\PY{p}{(}\PY{n}{filters} \PY{o}{=} \PY{l+m+mi}{128}\PY{p}{,} \PY{n}{kernel\PYZus{}size} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} \PY{n}{padding} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Same}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{activation} \PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{elu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{MaxPool2D}\PY{p}{(}\PY{n}{pool\PYZus{}size}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{BatchNormalization}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Conv2D}\PY{p}{(}\PY{n}{filters} \PY{o}{=} \PY{l+m+mi}{256}\PY{p}{,} \PY{n}{kernel\PYZus{}size} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} \PY{n}{padding} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Same}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{activation} \PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{elu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Conv2D}\PY{p}{(}\PY{n}{filters} \PY{o}{=} \PY{l+m+mi}{256}\PY{p}{,} \PY{n}{kernel\PYZus{}size} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} \PY{n}{padding} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Same}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{activation} \PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{elu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{MaxPool2D}\PY{p}{(}\PY{n}{pool\PYZus{}size}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{BatchNormalization}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Flatten}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dense}\PY{p}{(}\PY{l+m+mi}{256}\PY{p}{,} \PY{n}{activation} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{elu}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dense}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{activation} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{softmax}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n}{model}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{set-the-optimizer-and-annealer}{%
+\subsection{3.2 Set the optimizer and
+annealer}\label{set-the-optimizer-and-annealer}}
+
+Once our layers are added to the model, we need to set up a score
+function, a loss function and an optimisation algorithm.
+
+We define the loss function to measure how poorly our model performs on
+images with known labels. It is the error rate between the oberved
+labels and the predicted ones. We use a specific form for categorical
+classifications (\textgreater{}2 classes) called the
+``categorical\_crossentropy''.
+
+The most important function is the optimizer. This function will
+iteratively improve parameters (filters kernel values, weights and bias
+of neurons \ldots{}) in order to minimise the loss.
+
+I choosed Adam (with default values), it is a very effective optimizer.
+The Adam update adjusts the Adagrad method in a very simple way in an
+attempt to reduce its aggressive, monotonically decreasing learning
+rate. We could also have used Stochastic Gradient Descent (`sgd')
+optimizer, but it is slower than Adam.
+
+The metric function ``accuracy'' is used is to evaluate the performance
+our model. This metric function is similar to the loss function, except
+that the results from the metric evaluation are not used when training
+the model (only for evaluation).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Define the optimizer}
+        \PY{n}{optimizer} \PY{o}{=} \PY{n}{Adagrad}\PY{p}{(}\PY{n}{lr}\PY{o}{=}\PY{l+m+mf}{0.01}\PY{p}{,} \PY{n}{epsilon}\PY{o}{=}\PY{l+m+mf}{1e\PYZhy{}4}\PY{p}{,} \PY{n}{decay}\PY{o}{=}\PY{l+m+mf}{0.0}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Compile the model}
+        \PY{n}{model}\PY{o}{.}\PY{n}{compile}\PY{p}{(}\PY{n}{optimizer} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Adam}\PY{l+s+s1}{\PYZsq{}} \PY{p}{,} \PY{n}{loss} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{categorical\PYZus{}crossentropy}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{metrics}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{accuracy}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+     
+
+    In order to make the optimizer converge faster and closest to the global
+minimum of the loss function, i used an annealing method of the learning
+rate (LR).
+
+The LR is the step by which the optimizer walks through the `loss
+landscape'. The higher LR, the bigger are the steps and the quicker is
+the convergence. However the sampling is very poor with an high LR and
+the optimizer could probably fall into a local minima.
+
+Its better to have a decreasing learning rate during the training to
+reach efficiently the global minimum of the loss function.
+
+To keep the advantage of the fast computation time with a high LR, i
+decreased the LR dynamically every X steps (epochs) depending if it is
+necessary (when accuracy is not improved).
+
+With the ReduceLROnPlateau function from Keras.callbacks, i choose to
+reduce the LR by half if the accuracy is not improved after 3 epochs.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Set a learning rate annealer}
+        \PY{n}{learning\PYZus{}rate\PYZus{}reduction} \PY{o}{=} \PY{n}{ReduceLROnPlateau}\PY{p}{(}\PY{n}{monitor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{val\PYZus{}acc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                                                    \PY{n}{patience}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} 
+                                                    \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} 
+                                                    \PY{n}{factor}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} 
+                                                    \PY{n}{min\PYZus{}lr}\PY{o}{=}\PY{l+m+mf}{0.00001}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{epochs} \PY{o}{=} \PY{l+m+mi}{50}
+        \PY{n}{batch\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{64}
+\end{Verbatim}
+
+
+    \hypertarget{data-augmentation}{%
+\subsection{3.3 Data augmentation}\label{data-augmentation}}
+
+    In order to avoid overfitting problem, we need to expand artificially
+our handwritten digit dataset. We can make your existing dataset even
+larger. The idea is to alter the training data with small
+transformations to reproduce the variations occuring when someone is
+writing a digit.
+
+For example, the number is not centered The scale is not the same (some
+who write with big/small numbers) The image is rotated\ldots{}
+
+Approaches that alter the training data in ways that change the array
+representation while keeping the label the same are known as data
+augmentation techniques. Some popular augmentations people use are
+grayscales, horizontal flips, vertical flips, random crops, color
+jitters, translations, rotations, and much more.
+
+By applying just a couple of these transformations to our training data,
+we can easily double or triple the number of training examples and
+create a very robust model.
+
+The improvement is important : - Without data augmentation i obtained an
+accuracy of 98.114\% - With data augmentation i achieved 99.7\% of
+accuracy
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} With data augmentation to prevent overfitting (accuracy 0.99286)}
+        
+        \PY{n}{datagen} \PY{o}{=} \PY{n}{ImageDataGenerator}\PY{p}{(}
+                \PY{n}{featurewise\PYZus{}center}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{,}  \PY{c+c1}{\PYZsh{} set input mean to 0 over the dataset}
+                \PY{n}{samplewise\PYZus{}center}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{,}  \PY{c+c1}{\PYZsh{} set each sample mean to 0}
+                \PY{n}{featurewise\PYZus{}std\PYZus{}normalization}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{,}  \PY{c+c1}{\PYZsh{} divide inputs by std of the dataset}
+                \PY{n}{samplewise\PYZus{}std\PYZus{}normalization}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{,}  \PY{c+c1}{\PYZsh{} divide each input by its std}
+                \PY{n}{zca\PYZus{}whitening}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{,}  \PY{c+c1}{\PYZsh{} apply ZCA whitening}
+                \PY{n}{rotation\PYZus{}range}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,}  \PY{c+c1}{\PYZsh{} randomly rotate images in the range (degrees, 0 to 180)}
+                \PY{n}{zoom\PYZus{}range} \PY{o}{=} \PY{l+m+mf}{0.1}\PY{p}{,} \PY{c+c1}{\PYZsh{} Randomly zoom image }
+                \PY{n}{width\PYZus{}shift\PYZus{}range}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,}  \PY{c+c1}{\PYZsh{} randomly shift images horizontally (fraction of total width)}
+                \PY{n}{height\PYZus{}shift\PYZus{}range}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,}  \PY{c+c1}{\PYZsh{} randomly shift images vertically (fraction of total height)}
+                \PY{n}{horizontal\PYZus{}flip}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{,}  \PY{c+c1}{\PYZsh{} randomly flip images}
+                \PY{n}{vertical\PYZus{}flip}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{)}  \PY{c+c1}{\PYZsh{} randomly flip images}
+        
+        
+        \PY{n}{datagen}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+
+    For the data augmentation, i choosed to : - Randomly rotate some
+training images by 10 degrees - Randomly Zoom by 10\% some training
+images - Randomly shift images horizontally by 10\% of the width -
+Randomly shift images vertically by 10\% of the height
+
+I did not apply a vertical\_flip nor horizontal\_flip since it could
+have lead to misclassify symetrical numbers such as 6 and 9.
+
+Once our model is ready, we fit the training dataset .
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Fit the model}
+        \PY{n}{history} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{fit\PYZus{}generator}\PY{p}{(}\PY{n}{datagen}\PY{o}{.}\PY{n}{flow}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{Y\PYZus{}train}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{n}{batch\PYZus{}size}\PY{p}{)}\PY{p}{,}
+                                      \PY{n}{epochs} \PY{o}{=} \PY{n}{epochs}\PY{p}{,} \PY{n}{validation\PYZus{}data} \PY{o}{=} \PY{p}{(}\PY{n}{X\PYZus{}val}\PY{p}{,}\PY{n}{Y\PYZus{}val}\PY{p}{)}\PY{p}{,}
+                                      \PY{n}{verbose} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{steps\PYZus{}per\PYZus{}epoch}\PY{o}{=}\PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{/}\PY{o}{/} \PY{n}{batch\PYZus{}size}
+                                      \PY{p}{,} \PY{n}{callbacks}\PY{o}{=}\PY{p}{[}\PY{n}{learning\PYZus{}rate\PYZus{}reduction}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Set a learning rate annealer}
+        \PY{n}{learning\PYZus{}rate\PYZus{}reduction} \PY{o}{=} \PY{n}{ReduceLROnPlateau}\PY{p}{(}\PY{n}{monitor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{acc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                                                    \PY{n}{patience}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} 
+                                                    \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} 
+                                                    \PY{n}{factor}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} 
+                                                    \PY{n}{min\PYZus{}lr}\PY{o}{=}\PY{l+m+mf}{0.00001}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{history} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{fit\PYZus{}generator}\PY{p}{(}\PY{n}{datagen}\PY{o}{.}\PY{n}{flow}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{n}{batch\PYZus{}size}\PY{p}{)}\PY{p}{,}
+                                      \PY{n}{epochs} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{,} \PY{n}{verbose} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{steps\PYZus{}per\PYZus{}epoch}\PY{o}{=}\PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{/}\PY{o}{/} \PY{n}{batch\PYZus{}size}
+                                      \PY{p}{,} \PY{n}{callbacks}\PY{o}{=}\PY{p}{[}\PY{n}{learning\PYZus{}rate\PYZus{}reduction}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{evaluate-the-model}{%
+\section{4. Evaluate the model}\label{evaluate-the-model}}
+
+    \hypertarget{confusion-matrix}{%
+\subsection{4.1 Confusion matrix}\label{confusion-matrix}}
+
+    Confusion matrix can be very helpfull to see your model drawbacks.
+
+I plot the confusion matrix of the validation results.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Look at confusion matrix }
+        \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}val}\PY{p}{,} \PY{n}{Y\PYZus{}train}\PY{p}{,} \PY{n}{Y\PYZus{}val} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{Y\PYZus{}train}\PY{p}{,} \PY{n}{test\PYZus{}size} \PY{o}{=} \PY{l+m+mf}{0.3}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{n}{random\PYZus{}seed}\PY{p}{)}
+        
+        \PY{k}{def} \PY{n+nf}{plot\PYZus{}confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{cm}\PY{p}{,} \PY{n}{classes}\PY{p}{,}
+                                  \PY{n}{normalize}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{,}
+                                  \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Confusion matrix}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                  \PY{n}{cmap}\PY{o}{=}\PY{n}{plt}\PY{o}{.}\PY{n}{cm}\PY{o}{.}\PY{n}{Blues}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{    This function prints and plots the confusion matrix.}
+        \PY{l+s+sd}{    Normalization can be applied by setting `normalize=True`.}
+        \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{cm}\PY{p}{,} \PY{n}{interpolation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nearest}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{n}{cmap}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{n}{title}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{p}{)}
+            \PY{n}{tick\PYZus{}marks} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{classes}\PY{p}{)}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{tick\PYZus{}marks}\PY{p}{,} \PY{n}{classes}\PY{p}{,} \PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{45}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{yticks}\PY{p}{(}\PY{n}{tick\PYZus{}marks}\PY{p}{,} \PY{n}{classes}\PY{p}{)}
+        
+            \PY{k}{if} \PY{n}{normalize}\PY{p}{:}
+                \PY{n}{cm} \PY{o}{=} \PY{n}{cm}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{float}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{/} \PY{n}{cm}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{newaxis}\PY{p}{]}
+        
+            \PY{n}{thresh} \PY{o}{=} \PY{n}{cm}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)} \PY{o}{/} \PY{l+m+mf}{2.}
+            \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{j} \PY{o+ow}{in} \PY{n}{itertools}\PY{o}{.}\PY{n}{product}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{cm}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n+nb}{range}\PY{p}{(}\PY{n}{cm}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                \PY{n}{plt}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{n}{j}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{n}{cm}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{]}\PY{p}{,}
+                         \PY{n}{horizontalalignment}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{center}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                         \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{white}\PY{l+s+s2}{\PYZdq{}} \PY{k}{if} \PY{n}{cm}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{n}{thresh} \PY{k}{else} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{black}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        
+            \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{True label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Predicted label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Predict the values from the validation dataset}
+        \PY{n}{Y\PYZus{}pred} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}val}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} Convert predictions classes to one hot vectors }
+        \PY{n}{Y\PYZus{}pred\PYZus{}classes} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{Y\PYZus{}pred}\PY{p}{,}\PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)} 
+        \PY{c+c1}{\PYZsh{} Convert validation observations to one hot vectors}
+        \PY{n}{Y\PYZus{}true} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{Y\PYZus{}val}\PY{p}{,}\PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)} 
+        \PY{c+c1}{\PYZsh{} compute the confusion matrix}
+        \PY{n}{confusion\PYZus{}mtx} \PY{o}{=} \PY{n}{confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{Y\PYZus{}true}\PY{p}{,} \PY{n}{Y\PYZus{}pred\PYZus{}classes}\PY{p}{)} 
+        \PY{c+c1}{\PYZsh{} plot the confusion matrix}
+        \PY{n}{plot\PYZus{}confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{confusion\PYZus{}mtx}\PY{p}{,} \PY{n}{classes} \PY{o}{=} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)} 
+\end{Verbatim}
+
+
+    Here we can see that our CNN performs very well on all digits with few
+errors considering the size of the validation set (4 images).
+
+However, it seems that our CNN has some little troubles with the 4
+digit, they are misclassified as 9. Sometime it is very difficult to
+catch the difference between 4 and 9 when curves are smooth.
+
+    Let's investigate for errors.
+
+I want to see the most important errors . For that purpose i need to get
+the difference between the probabilities of real value and the predicted
+ones in the results.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Display some error results }
+        
+        \PY{c+c1}{\PYZsh{} Errors are difference between predicted labels and true labels}
+        \PY{n}{errors} \PY{o}{=} \PY{p}{(}\PY{n}{Y\PYZus{}pred\PYZus{}classes} \PY{o}{\PYZhy{}} \PY{n}{Y\PYZus{}true} \PY{o}{!=} \PY{l+m+mi}{0}\PY{p}{)}
+        
+        \PY{n}{Y\PYZus{}pred\PYZus{}classes\PYZus{}errors} \PY{o}{=} \PY{n}{Y\PYZus{}pred\PYZus{}classes}\PY{p}{[}\PY{n}{errors}\PY{p}{]}
+        \PY{n}{Y\PYZus{}pred\PYZus{}errors} \PY{o}{=} \PY{n}{Y\PYZus{}pred}\PY{p}{[}\PY{n}{errors}\PY{p}{]}
+        \PY{n}{Y\PYZus{}true\PYZus{}errors} \PY{o}{=} \PY{n}{Y\PYZus{}true}\PY{p}{[}\PY{n}{errors}\PY{p}{]}
+        \PY{n}{X\PYZus{}val\PYZus{}errors} \PY{o}{=} \PY{n}{X\PYZus{}val}\PY{p}{[}\PY{n}{errors}\PY{p}{]}
+        
+        \PY{k}{def} \PY{n+nf}{display\PYZus{}errors}\PY{p}{(}\PY{n}{errors\PYZus{}index}\PY{p}{,}\PY{n}{img\PYZus{}errors}\PY{p}{,}\PY{n}{pred\PYZus{}errors}\PY{p}{,} \PY{n}{obs\PYZus{}errors}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{} This function shows 6 images with their predicted and real labels\PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{n}{n} \PY{o}{=} \PY{l+m+mi}{0}
+            \PY{n}{nrows} \PY{o}{=} \PY{l+m+mi}{1}
+            \PY{n}{ncols} \PY{o}{=} \PY{l+m+mi}{3}
+            \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{nrows}\PY{p}{,}\PY{n}{ncols}\PY{p}{,}\PY{n}{sharex}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{,}\PY{n}{sharey}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{)}
+            \PY{k}{for} \PY{n}{row} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{nrows}\PY{p}{)}\PY{p}{:}
+                \PY{k}{for} \PY{n}{col} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{ncols}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{error} \PY{o}{=} \PY{n}{errors\PYZus{}index}\PY{p}{[}\PY{n}{n}\PY{p}{]}
+                    \PY{n}{ax}\PY{p}{[}\PY{n}{col}\PY{p}{]}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{p}{(}\PY{n}{img\PYZus{}errors}\PY{p}{[}\PY{n}{error}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{28}\PY{p}{,}\PY{l+m+mi}{28}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+                    \PY{n}{ax}\PY{p}{[}\PY{n}{col}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Predicted label :\PYZob{}\PYZcb{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{True label :\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{pred\PYZus{}errors}\PY{p}{[}\PY{n}{error}\PY{p}{]}\PY{p}{,}\PY{n}{obs\PYZus{}errors}\PY{p}{[}\PY{n}{error}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                    \PY{n}{n} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+        
+        \PY{c+c1}{\PYZsh{} Probabilities of the wrong predicted numbers}
+        \PY{n}{Y\PYZus{}pred\PYZus{}errors\PYZus{}prob} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{Y\PYZus{}pred\PYZus{}errors}\PY{p}{,}\PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Predicted probabilities of the true values in the error set}
+        \PY{n}{true\PYZus{}prob\PYZus{}errors} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{diagonal}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{take}\PY{p}{(}\PY{n}{Y\PYZus{}pred\PYZus{}errors}\PY{p}{,} \PY{n}{Y\PYZus{}true\PYZus{}errors}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Difference between the probability of the predicted label and the true label}
+        \PY{n}{delta\PYZus{}pred\PYZus{}true\PYZus{}errors} \PY{o}{=} \PY{n}{Y\PYZus{}pred\PYZus{}errors\PYZus{}prob} \PY{o}{\PYZhy{}} \PY{n}{true\PYZus{}prob\PYZus{}errors}
+        
+        \PY{c+c1}{\PYZsh{} Sorted list of the delta prob errors}
+        \PY{n}{sorted\PYZus{}dela\PYZus{}errors} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argsort}\PY{p}{(}\PY{n}{delta\PYZus{}pred\PYZus{}true\PYZus{}errors}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Top 6 errors }
+        \PY{n}{most\PYZus{}important\PYZus{}errors} \PY{o}{=} \PY{n}{sorted\PYZus{}dela\PYZus{}errors}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{6}\PY{p}{:}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} Show the top 6 errors}
+        \PY{n}{display\PYZus{}errors}\PY{p}{(}\PY{n}{most\PYZus{}important\PYZus{}errors}\PY{p}{,} \PY{n}{X\PYZus{}val\PYZus{}errors}\PY{p}{,} \PY{n}{Y\PYZus{}pred\PYZus{}classes\PYZus{}errors}\PY{p}{,} \PY{n}{Y\PYZus{}true\PYZus{}errors}\PY{p}{)}
+\end{Verbatim}
+
+
+    The most important errors are also the most intrigous.
+
+For those six case, the model is not ridiculous. Some of these errors
+can also be made by humans, especially for one the 9 that is very close
+to a 4. The last 9 is also very misleading, it seems for me that is a 0.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} predict results}
+        \PY{n}{results} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{test}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} select the indix with the maximum probability}
+        \PY{n}{results} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{results}\PY{p}{,}\PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+        
+        \PY{n}{results} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{results}\PY{p}{,}\PY{n}{name}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Label}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{submission} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{28001}\PY{p}{)}\PY{p}{,}\PY{n}{name} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ImageId}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,}\PY{n}{results}\PY{p}{]}\PY{p}{,}\PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+        
+        \PY{n}{submission}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{cnn\PYZus{}mnist\PYZus{}datagen.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{index}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
